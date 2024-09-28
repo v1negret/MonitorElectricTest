@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorElectric.Client", "MonitorElectric.Client\MonitorElectric.Client.csproj", "{8B98F4E0-4926-41E0-9574-8D465CAFB823}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorElectric.Services", "MonitorElectric.Services\MonitorElectric.Services.csproj", "{3EC980C7-6CE5-410D-B42B-F83E76052441}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorElectric.Models", "MonitorElectric.Models\MonitorElectric.Models.csproj", "{108987A6-8625-4EC0-A735-FA7ECB62E692}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorElectric.Tests", "MonitorElectric.Tests\MonitorElectric.Tests.csproj", "{A0E3BAA8-6D5E-4F4E-BC01-377852F380B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorElectric.Data", "MonitorElectric.Data\MonitorElectric.Data.csproj", "{F1134C2A-7564-479B-984A-3DD8347162D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B98F4E0-4926-41E0-9574-8D465CAFB823}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B98F4E0-4926-41E0-9574-8D465CAFB823}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B98F4E0-4926-41E0-9574-8D465CAFB823}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B98F4E0-4926-41E0-9574-8D465CAFB823}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EC980C7-6CE5-410D-B42B-F83E76052441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EC980C7-6CE5-410D-B42B-F83E76052441}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EC980C7-6CE5-410D-B42B-F83E76052441}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EC980C7-6CE5-410D-B42B-F83E76052441}.Release|Any CPU.Build.0 = Release|Any CPU
+		{108987A6-8625-4EC0-A735-FA7ECB62E692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{108987A6-8625-4EC0-A735-FA7ECB62E692}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{108987A6-8625-4EC0-A735-FA7ECB62E692}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{108987A6-8625-4EC0-A735-FA7ECB62E692}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0E3BAA8-6D5E-4F4E-BC01-377852F380B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0E3BAA8-6D5E-4F4E-BC01-377852F380B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0E3BAA8-6D5E-4F4E-BC01-377852F380B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0E3BAA8-6D5E-4F4E-BC01-377852F380B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1134C2A-7564-479B-984A-3DD8347162D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1134C2A-7564-479B-984A-3DD8347162D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1134C2A-7564-479B-984A-3DD8347162D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1134C2A-7564-479B-984A-3DD8347162D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
