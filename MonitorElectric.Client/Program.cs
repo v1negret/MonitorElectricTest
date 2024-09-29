@@ -71,11 +71,11 @@ try
     var items = rssParser.Parse(text);
     log.Information($"Конец конвертации RSS");
 
-    log.Information($"Начало конвертации RSS");
+    log.Information($"Начало записи в Excel");
     await excelService.WriteAsOpenXml(
         Path.Combine(Directory.GetCurrentDirectory(),
             $"Выгрузка {DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss", CultureInfo.InvariantCulture)}.xlsx"), items);
-    log.Information($"Конец конвертации RSS");
+    log.Information($"Конец записи в Excel");
 
     Console.WriteLine("Нажмите любую кнопку чтобы выйти...");
     Console.ReadKey();
