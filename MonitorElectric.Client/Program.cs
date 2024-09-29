@@ -2,10 +2,27 @@
 using System.Net;
 using System.Xml;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using MonitorElectric.Data;
 using MonitorElectric.Services;
 using MonitorElectric.Services.Interfaces;
 using Serilog;
+
+if(!File.Exists("appsettings.json"))
+{
+    using (var sw = File.CreateText("appsettings.json"))
+    {
+        sw.WriteLine("{\n  \"ConnectionStrings\": {\n    \"DbConnectionString\": \"\",\n    \"RssConnectionString\": \"\"\n  }\n}");
+    }
+}
+
+var configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
+    .Build();
+
+
+var dbConnectionString = configuration["ConnectionStrings:DbConnectionString"];
+var rssConnectionString = configuration["ConnectionStrings:RssConnectionString"];
 
 using var log = new LoggerConfiguration()
     .WriteTo
@@ -21,7 +38,6 @@ IExcelService excelService = new ExcelService();
 
 try
 {
-    string configLocation = Path.Combine(Directory.GetCurrentDirectory(), "config.txt");
     string href = "";
 
     if (args.Length != 0)
@@ -30,16 +46,16 @@ try
     }
     else
     {
-        if (File.Exists(configLocation))
+        if (!string.IsNullOrEmpty(rssConnectionString))
         {
-            href = File.ReadAllText(configLocation);
+            href = rssConnectionString;
         }
         else
         {
             Console.WriteLine("""
                               Необходимо указать адрес RSS-ленты. Сделать это можно:
                                 а) Указав в качестве параметра в консоли. Пример: 'MonitorElectric.Client "https://habr.com/ru/rss/articles/"'
-                                б) Указав адрес ленты в конфигурационном файле config.txt
+                                б) Указав адрес ленты в конфигурационном файле appsettings.json
                                 
                               Нажмите любую клавишу чтобы выйти...
                               """);
@@ -62,6 +78,9 @@ try
         Path.Combine(Directory.GetCurrentDirectory(),
             $"Выгрузка {DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss", CultureInfo.InvariantCulture)}.xlsx"), items);
     log.Information($"Конец конвертации RSS");
+    
+    Console.WriteLine("Нажмите любую кнопку чтобы выйти...");
+    Console.ReadKey();
 }
 catch (HttpRequestException ex)
 {

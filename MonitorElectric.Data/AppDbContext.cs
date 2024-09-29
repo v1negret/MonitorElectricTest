@@ -7,15 +7,15 @@ namespace MonitorElectric.Data;
 public class AppDbContext : DbContext
 {
     public DbSet<RssItemEntity> RssItems { get; set; }
-    private string ConnectionString;
+    private string _connectionString;
     public AppDbContext(string connectionString)
     {
-        ConnectionString = connectionString;
+        _connectionString = connectionString;
         Database.EnsureCreated();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(ConnectionString);
+        optionsBuilder.UseSqlServer(_connectionString);
     }
 }
