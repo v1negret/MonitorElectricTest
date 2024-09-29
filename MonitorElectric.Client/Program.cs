@@ -52,7 +52,7 @@ try
         {
             Console.WriteLine("""
                               Необходимо указать адрес RSS-ленты. Сделать это можно:
-                                а) Указав в качестве параметра в консоли. Пример: 'MonitorElectric.Client "https://habr.com/ru/rss/articles/"'
+                                а) Указав в параметре --h в консоли. Пример: 'MonitorElectric.Client --h "https://habr.com/ru/rss/articles/"'
                                 б) Указав адрес ленты в конфигурационном файле appsettings.json
                                 
                               Нажмите любую клавишу чтобы выйти...
