@@ -8,22 +8,6 @@ using MonitorElectric.Services;
 using MonitorElectric.Services.Interfaces;
 using Serilog;
 
-if(!File.Exists("appsettings.json"))
-{
-    using (var sw = File.CreateText("appsettings.json"))
-    {
-        sw.WriteLine("{\n  \"ConnectionStrings\": {\n    \"DbConnectionString\": \"\",\n    \"RssConnectionString\": \"\"\n  }\n}");
-    }
-}
-
-var configuration = new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json")
-    .Build();
-
-
-var dbConnectionString = configuration["ConnectionStrings:DbConnectionString"];
-var rssConnectionString = configuration["ConnectionStrings:RssConnectionString"];
-
 using var log = new LoggerConfiguration()
     .WriteTo
     .Console()
@@ -32,19 +16,33 @@ using var log = new LoggerConfiguration()
         outputTemplate: "{Timestamp:dd-MM-yyy HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}")
     .CreateLogger();
 
-IRssReader rssReader = new RssReader();
-IRssParser rssParser = new RssParser();
-IExcelService excelService = new ExcelService();
-
 try
 {
-    string href = "";
 
-    if (args.Length != 0)
+    if (!File.Exists("appsettings.json"))
     {
-        href = args[0];
+        using (var sw = File.CreateText("appsettings.json"))
+        {
+            sw.WriteLine(
+                "{\n  \"ConnectionStrings\": {\n    \"DbConnectionString\": \"\",\n    \"RssConnectionString\": \"\"\n  }\n}");
+        }
     }
-    else
+
+    var configuration = new ConfigurationBuilder()
+        .AddJsonFile("appsettings.json")
+        .AddCommandLine(args)
+        .Build();
+
+
+    var dbConnectionString = configuration["ConnectionStrings:DbConnectionString"];
+    var rssConnectionString = configuration["ConnectionStrings:RssConnectionString"];
+
+    IRssReader rssReader = new RssReader();
+    IRssParser rssParser = new RssParser();
+    IExcelService excelService = new ExcelService();
+
+    var href = configuration["h"];
+    if(string.IsNullOrEmpty(href))
     {
         if (!string.IsNullOrEmpty(rssConnectionString))
         {
@@ -65,9 +63,9 @@ try
 
     }
 
-    log.Information($"Начало чтения RSS");
+    log.Information($"Начало чтения RSS из {href}");
     var text = await rssReader.Read(href);
-    log.Information($"Конец чтения RSS");
+    log.Information($"Конец чтения RSS {href}");
 
     log.Information($"Начало конвертации RSS");
     var items = rssParser.Parse(text);
@@ -78,7 +76,7 @@ try
         Path.Combine(Directory.GetCurrentDirectory(),
             $"Выгрузка {DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss", CultureInfo.InvariantCulture)}.xlsx"), items);
     log.Information($"Конец конвертации RSS");
-    
+
     Console.WriteLine("Нажмите любую кнопку чтобы выйти...");
     Console.ReadKey();
 }
@@ -93,6 +91,13 @@ catch (XmlException ex)
 {
     log.Error("На указанной странице не была обнаружена RSS-лента");
 
+    Console.WriteLine("Нажмите любую кнопку чтобы выйти...");
+    Console.ReadKey();
+}
+catch (InvalidDataException ex)
+{
+    log.Error("Ошибка при чтении конфигурационного файла appsettings.json");
+    
     Console.WriteLine("Нажмите любую кнопку чтобы выйти...");
     Console.ReadKey();
 }
